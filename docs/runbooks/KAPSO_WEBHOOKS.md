@@ -6,7 +6,7 @@ Status: planned procedure. App routes, deployment commands, replay tooling, and 
 
 1. Verify webhook signatures before processing.
 2. Enforce idempotency using the provider event identity verified during integration. The exact header or field is not specified here.
-3. Acknowledge only after recoverable acceptance; process asynchronously via Redis/worker. The durable handoff is an [open decision](../OPEN_QUESTIONS.md#q12-durable-ingress-and-idempotency).
+3. Acknowledge only after recoverable acceptance; process asynchronously via Redis/worker. The durable handoff is an [open decision](../OPEN_QUESTIONS.md#q12-recepción-persistente-de-eventos-e-idempotencia).
 4. Treat delivery as at-least-once.
 5. Never affect inventory until the user confirms (see ledger docs).
 

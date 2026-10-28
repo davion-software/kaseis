@@ -1,135 +1,135 @@
-# Open questions
+# Preguntas abiertas
 
-These questions come from a headless review of existing docs, rules, commands, and placeholder directories on 2026-10-28. Suggested defaults are proposals, not accepted decisions or implemented behavior. Resolve each relevant question before implementing or operating the affected flow.
+Estas preguntas surgen de una revisión sin intervención del usuario de los documentos, reglas, comandos y directorios de estructura inicial existentes, realizada el 2026-10-28. Las opciones predeterminadas sugeridas son propuestas, no decisiones aceptadas ni comportamientos implementados. Resuelve cada pregunta pertinente antes de implementar o poner en funcionamiento el flujo afectado.
 
-## Review outcome
+## Resultado de la revisión
 
-The review followed purpose → pilot scope → domain rules → runtime boundaries → operations. Existing evidence settles the Inventory Truth loop, confirmation before stock, immutable ledger, tenant isolation, private evidence, hexagonal modules, Railway hosting, and Better Auth. The unresolved branches are listed below. No new product approval is inferred from this review.
+La revisión siguió este orden: propósito → alcance del piloto → reglas del dominio → límites de ejecución → operación. La documentación existente establece el ciclo de Inventory Truth, la confirmación antes de modificar existencias, el registro inmutable de movimientos, el aislamiento entre organizaciones, las evidencias privadas, los módulos hexagonales, el alojamiento en Railway y Better Auth. Las cuestiones pendientes se enumeran a continuación. Esta revisión no implica nuevas aprobaciones de producto.
 
-## Q01. Pilot inventory locations
+## Q01. Ubicaciones de inventario del piloto
 
-Question: Onboarding and ledger use locations, but pilot scope defers locations to commercial MVP. What location model is required?
+Pregunta: La incorporación de una obra y el registro de movimientos utilizan ubicaciones, pero el alcance del piloto las pospone hasta el MVP comercial. ¿Qué modelo de ubicaciones se necesita?
 
-Why it matters: Determines baseline grouping, queries, counts, and interface scope.
+Por qué importa: Determina cómo se agrupan los saldos iniciales, las consultas, los conteos y el alcance de la interfaz.
 
-Suggested default: Use one default inventory location per obra; defer multiple-location workflows.
+Opción predeterminada sugerida: Usar una única ubicación de inventario predeterminada por obra y posponer los flujos con varias ubicaciones.
 
-## Q02. Transfers and receipt scope
+## Q02. Alcance de las transferencias y los ingresos
 
-Question: Are transfers part of the pilot, and is ingreso distinct from supplier receipt management?
+Pregunta: ¿Las transferencias forman parte del piloto? ¿El ingreso de existencias se distingue de la gestión de recepciones de proveedores?
 
-Why it matters: The old glossary lists transfers as pilot+ while supplier and partial receipts are deferred.
+Por qué importa: El glosario anterior incluye las transferencias en «piloto y fases posteriores», mientras que las recepciones de proveedores y las recepciones parciales se posponen.
 
-Suggested default: Keep ingreso as RECEIPT; defer transfers and supplier delivery records.
+Opción predeterminada sugerida: Mantener el ingreso como `RECEIPT` y posponer las transferencias y los registros de entregas de proveedores.
 
-## Q03. Approval authority
+## Q03. Autoridad de aprobación
 
-Question: Who may approve initial inventory, reversals, and adjustments, and at what thresholds?
+Pregunta: ¿Quién puede aprobar el inventario inicial, las reversiones y los ajustes, y con qué umbrales?
 
-Why it matters: Security separates register, approve, and administer, but the permission matrix is absent.
+Por qué importa: Las reglas de seguridad separan los permisos de registrar, aprobar y administrar, pero no existe una matriz de permisos.
 
-Suggested default: Require explicit supervisor approval for baseline and adjustments; define reversal authority before use. No automatic approval.
+Opción predeterminada sugerida: Exigir la aprobación explícita de un supervisor para el inventario inicial y los ajustes. Definir quién puede aprobar reversiones antes de utilizarlas. No aprobar automáticamente.
 
-## Q04. Count cutoff and concurrent movements
+## Q04. Momento de corte del conteo y movimientos simultáneos
 
-Question: Which ledger cutoff does a count compare against, and how are movements during counting handled?
+Pregunta: ¿Con qué momento de corte del registro de movimientos se compara un conteo? ¿Cómo se gestionan los movimientos realizados durante el conteo?
 
-Why it matters: Comparing different moments can create false differences.
+Por qué importa: Comparar cantidades de momentos distintos puede generar diferencias falsas.
 
-Suggested default: Record a cutoff and count timestamp; serialize count approval with affected movements until a concurrent protocol is designed.
+Opción predeterminada sugerida: Registrar el momento de corte y la fecha y hora del conteo. Ejecutar secuencialmente la aprobación del conteo y los movimientos afectados hasta diseñar un protocolo de concurrencia.
 
-## Q05. Tolerance and confidence
+## Q05. Tolerancia y confianza
 
-Question: What tolerance, count age, and transition precedence define each confidence state?
+Pregunta: ¿Qué tolerancia, antigüedad del conteo y prioridad entre transiciones definen cada estado de confianza?
 
-Why it matters: The current labels do not define an operational state machine or the 95% accuracy measure.
+Por qué importa: Las etiquetas actuales no definen una máquina de estados operativa ni cómo se mide el objetivo de precisión del 95 %.
 
-Suggested default: Use zero unexplained tolerance provisionally and show last-count time; agree material-specific tolerances and freshness before launch.
+Opción predeterminada sugerida: No tolerar provisionalmente diferencias sin explicación y mostrar la fecha y hora del último conteo. Acordar las tolerancias y la antigüedad máxima del conteo por material antes del lanzamiento.
 
-## Q06. Negative stock
+## Q06. Existencias negativas
 
-Question: Which roles may allow negative stock, and is it enabled by default?
+Pregunta: ¿Qué roles pueden permitir existencias negativas? ¿Esta posibilidad está habilitada de forma predeterminada?
 
-Why it matters: Ledger rules permit it with warning, reason, and configured permission but specify no default.
+Por qué importa: Las reglas del registro de movimientos las permiten con advertencia, motivo y permiso configurado, pero no establecen un comportamiento predeterminado.
 
-Suggested default: Reject negative stock unless explicitly enabled for an authorized role with warning and reason.
+Opción predeterminada sugerida: Rechazar las existencias negativas salvo que se habiliten explícitamente para un rol autorizado, con advertencia y motivo.
 
-## Q07. Quantities and corrections
+## Q07. Cantidades y correcciones
 
-Question: What decimal precision and conversion rules apply, and are partial or repeated reversals allowed?
+Pregunta: ¿Qué precisión decimal y reglas de conversión se aplican? ¿Se permiten reversiones parciales o repetidas?
 
-Why it matters: Rounding and over-reversal can make ledger totals inconsistent.
+Por qué importa: El redondeo y las reversiones que exceden la cantidad original pueden generar inconsistencias en los totales del registro de movimientos.
 
-Suggested default: Use exact decimal quantities, reviewed base-unit conversions, and one full linked reversal until a partial policy is agreed.
+Opción predeterminada sugerida: Usar cantidades decimales exactas, conversiones revisadas a la unidad base y una única reversión completa vinculada al movimiento original hasta acordar una política de reversiones parciales.
 
-## Q08. Confirmation lifecycle
+## Q08. Ciclo de vida de la confirmación
 
-Question: When do proposals expire, and what happens if stock or obra context changes before confirmation?
+Pregunta: ¿Cuándo vencen las propuestas? ¿Qué ocurre si las existencias o el contexto de la obra cambian antes de la confirmación?
 
-Why it matters: A bare confirmation must not approve stale or different movement data.
+Por qué importa: Una confirmación aislada no debe aprobar datos desactualizados ni un movimiento distinto del presentado.
 
-Suggested default: Bind confirmation to an identified proposal and obra; require a new review after material changes or expiry. Select an expiry before implementation.
+Opción predeterminada sugerida: Vincular la confirmación a una propuesta identificada y a una obra. Exigir una nueva revisión tras cambios sustanciales o el vencimiento. Definir el plazo de vencimiento antes de implementar.
 
-## Q09. Phone identity and obra context
+## Q09. Identidad telefónica y contexto de la obra
 
-Question: How are WhatsApp numbers linked, revoked, and authorized across organizations?
+Pregunta: ¿Cómo se vinculan, revocan y autorizan los números de WhatsApp entre organizaciones?
 
-Why it matters: A phone number or remembered conversation context alone cannot establish tenant access.
+Por qué importa: Un número de teléfono o el contexto guardado de una conversación no bastan para autorizar el acceso a una organización.
 
-Suggested default: Require administered linkage, active membership checks on every action, and visible obra context.
+Opción predeterminada sugerida: Exigir una vinculación gestionada por un administrador, comprobar la membresía activa en cada acción y mantener visible la obra seleccionada.
 
-## Q10. Pilot measurement
+## Q10. Medición del piloto
 
-Question: How are capture, accuracy, retention, and paid continuation measured for 1–3 partners?
+Pregunta: ¿Cómo se miden el registro de movimientos, la precisión, la retención y la continuidad de pago para entre uno y tres socios de diseño?
 
-Why it matters: Same-day capture needs an independent denominator; 2-of-3 payment does not cover smaller cohorts.
+Por qué importa: Medir el registro en el mismo día requiere un denominador independiente. El criterio de pago de dos de tres socios no contempla grupos más pequeños.
 
-Suggested default: Agree definitions before onboarding; track daily field records against confirmed movements, explain differences per material, and report actual paid partners over cohort size without claiming an equivalent threshold.
+Opción predeterminada sugerida: Acordar las definiciones antes de incorporar las obras. Contrastar los registros diarios de campo con los movimientos confirmados, explicar las diferencias por material e informar cuántos socios pagan respecto del total del grupo, sin afirmar que equivale al umbral original.
 
-## Q11. Export and import scope
+## Q11. Alcance de la exportación e importación
 
-Question: Does the pilot require CSV only or also native Excel export?
+Pregunta: ¿El piloto requiere solo CSV o también exportación nativa a Excel?
 
-Why it matters: Pilot scope says CSV/Excel, while scope-gate lists CSV and defers Excel import.
+Por qué importa: El alcance del piloto menciona CSV y Excel, mientras que `scope-gate` incluye CSV y pospone la importación desde Excel.
 
-Suggested default: Start with CSV export; retain Excel export as unresolved. Assisted setup is not a self-service import commitment.
+Opción predeterminada sugerida: Empezar con la exportación a CSV y mantener pendiente la decisión sobre la exportación a Excel. La configuración asistida no implica ofrecer una importación de autoservicio.
 
-## Q12. Durable ingress and idempotency
+## Q12. Recepción persistente de eventos e idempotencia
 
-Question: Which queue library, durable acceptance boundary, key scope, retention, and replay protocol will be used?
+Pregunta: ¿Qué biblioteca de colas, punto de aceptación persistente, alcance de claves, plazo de conservación y protocolo de reprocesamiento se utilizarán?
 
-Why it matters: Acknowledging before recoverable persistence can lose events; expiring Redis keys can permit duplicate stock writes.
+Por qué importa: Confirmar la recepción antes de guardar el evento de forma recuperable puede causar su pérdida. La caducidad de claves en Redis puede permitir escrituras duplicadas de existencias.
 
-Suggested default: Evaluate a Postgres inbox and transactional inventory uniqueness with Redis jobs; acknowledge only recoverable acceptance. Verify Kapso signature/event contracts during implementation.
+Opción predeterminada sugerida: Evaluar una bandeja de entrada de eventos en Postgres y restricciones transaccionales de unicidad para el inventario, junto con tareas en Redis. Confirmar la recepción solo cuando el evento sea recuperable. Verificar los contratos de firmas y eventos de Kapso durante la implementación.
 
-## Q13. Persistence and worker bootstrap
+## Q13. Persistencia y puesta en marcha del worker
 
-Question: What schema, migrations, worker path, API routes, and health checks form the first runnable slice?
+Pregunta: ¿Qué esquema, migraciones, ruta del worker, rutas de API y comprobaciones de salud forman el primer flujo ejecutable?
 
-Why it matters: There are no manifests or runtime contracts to deploy or test.
+Por qué importa: No existen manifiestos de paquetes ni contratos de ejecución que se puedan desplegar o probar.
 
-Suggested default: Implement one confirmed ingreso/salida slice with factory DI and local Postgres tests before expanding. Treat BullMQ as a candidate, not a finalized dependency.
+Opción predeterminada sugerida: Implementar un flujo de ingreso y salida con confirmación, inyección de dependencias mediante funciones de fábrica y pruebas locales con Postgres antes de ampliar el alcance. Considerar BullMQ como candidato, no como dependencia definitiva.
 
-## Q14. Recovery and operations
+## Q14. Recuperación y operación
 
-Question: Who owns incidents, what are RPO/RTO, and how are Postgres, R2, and queued work restored together?
+Pregunta: ¿Quién se encarga de los incidentes? ¿Cuáles son los objetivos de punto de recuperación y tiempo de recuperación, RPO y RTO? ¿Cómo se restauran conjuntamente Postgres, R2 y las tareas en cola?
 
-Why it matters: Current rollback guidance is not a tested recovery procedure.
+Por qué importa: La guía actual para volver a una versión anterior no es un procedimiento de recuperación probado.
 
-Suggested default: Assign an incident owner and require a staging restore drill plus idempotent replay before live writes; set recovery objectives and backup retention with the partner.
+Opción predeterminada sugerida: Asignar un responsable de incidentes y exigir un simulacro de restauración en el entorno de pruebas, junto con un reprocesamiento idempotente, antes de habilitar escrituras en producción. Acordar con el socio los objetivos de recuperación y la conservación de copias de seguridad.
 
-## Q15. Evidence and personal data
+## Q15. Evidencias y datos personales
 
-Question: What upload types, sizes, signed URL lifetime, data retention, export, and deletion policies apply?
+Pregunta: ¿Qué políticas se aplican a los tipos y tamaños de archivos, la vigencia de las URL firmadas, la conservación de datos, la exportación y la eliminación?
 
-Why it matters: Private evidence and original messages include personal and business information.
+Por qué importa: Las evidencias privadas y los mensajes originales contienen información personal y empresarial.
 
-Suggested default: Minimize collected data, keep evidence private, authorize every signed URL, and agree explicit retention and deletion rules before collection.
+Opción predeterminada sugerida: Recopilar solo los datos necesarios, mantener privadas las evidencias, autorizar cada URL firmada y acordar reglas explícitas de conservación y eliminación antes de recopilar datos.
 
-## Q16. Messaging providers and cost
+## Q16. Proveedores de mensajería y costos
 
-Question: Which Kapso events, templates, service windows, LLM fallback provider, and spending limits will be configured?
+Pregunta: ¿Qué eventos de Kapso, plantillas, ventanas de atención, proveedor de LLM para interpretación alternativa y límites de gasto se configurarán?
 
-Why it matters: Proactive summaries and fallback parsing need actual provider contracts and budget ownership.
+Por qué importa: Los resúmenes proactivos y la interpretación alternativa requieren contratos reales con los proveedores y un responsable del presupuesto.
 
-Suggested default: Start with deterministic text flows and a manual ambiguity path; validate current provider contracts and costs before enabling proactive or LLM features.
+Opción predeterminada sugerida: Empezar con flujos de texto deterministas y resolución manual de ambigüedades. Validar los contratos y costos vigentes de los proveedores antes de habilitar funciones proactivas o basadas en LLM.

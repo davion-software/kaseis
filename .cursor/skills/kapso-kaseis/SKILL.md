@@ -29,4 +29,4 @@ Kapso event → verify → idempotent store → HTTP 200
 - `KAPSO_API_KEY`
 - `KAPSO_API_BASE_URL` (host only)
 
-See `docs/runbooks/kapso-webhooks.md` and `.cursor/rules/kapso-whatsapp.mdc`.
+See `docs/runbooks/KAPSO_WEBHOOKS.md` and `.cursor/rules/kapso-whatsapp.mdc`.

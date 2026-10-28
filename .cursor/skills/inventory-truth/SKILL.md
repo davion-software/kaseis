@@ -19,7 +19,7 @@ Ledger movements, balances, counts, reconciliations, confidence states, or anyth
 
 ## Workflow
 
-1. Read `docs/architecture/ledger.md` and `.cursor/rules/inventory-ledger.mdc`.
+1. Read `docs/architecture/LEDGER.md` and `.cursor/rules/inventory-ledger.mdc`.
 2. Change domain → application → adapters → `packages/di`.
 3. Add tests for duplicates, reversal, and org isolation.
 4. Update glossary/ledger docs if introducing a new movement type.

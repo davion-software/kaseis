@@ -1,5 +1,7 @@
 # packages/shared
 
+Status: placeholder directory. The responsibilities and paths below describe the target design; no implementation exists yet.
+
 Cross-cutting primitives shared by modules and apps.
 
 ## Expected contents

@@ -1,56 +1,44 @@
-# Kaseis
+# Kaseis Obras
 
-**Kaseis Obras** — materials operating system for Latin American contractors. Field teams register on WhatsApp; the company gets a reconciliable inventory and control dashboard.
+Kaseis helps Latin American construction teams keep materials inventory that they can explain and reconcile. Field teams record movements through WhatsApp; supervisors review stock, evidence, and differences in a web dashboard.
 
-> **Repo status:** Cursor agent setup, hexagonal docs, and monorepo skeleton. Nuxt app and Railway provisioning are next.
+The first pilot focuses on Inventory Truth: an approved starting count, confirmed movements, stock queries, physical counts, and reconciliation. It targets 1–3 design partners, one obra per pilot, and 20–50 critical materials.
 
-## Stack
+## Repository status
 
-| Layer | Choice |
-| ----- | ------ |
-| Web | Nuxt 4 + Nuxt UI |
-| Auth | Better Auth |
-| App host | Railway (`web` + `worker`) |
-| Database | Railway Postgres |
-| Queue | Railway Redis |
-| WhatsApp | Kapso |
-| Evidence | Cloudflare R2 |
-| Errors | Sentry |
-| Source | GitHub |
+This repository contains product and architecture documentation, agent guidance, installed skills, and placeholder package directories. It has no application code, package manifests, migrations, CI workflow, or runnable tests. Deployment and recovery are not verified here.
 
-## Monorepo layout
+The target stack is Nuxt 4 with Nuxt UI and Nitro, Better Auth, Railway web and worker services, Postgres, Redis, Kapso for WhatsApp, Cloudflare R2 for private evidence, and Sentry. These are design choices, not provisioned resources demonstrated by this repository.
+
+## Read the context
+
+- [Product](docs/PRODUCT.md): users, operating loop, responsibilities, and boundaries.
+- [Pilot scope](docs/PILOT_SCOPE.md): limits, included work, exclusions, and success targets.
+- [Glossary](GLOSSARY.md): domain terms used across product and engineering.
+- [Technical design](docs/TECHNICAL_DESIGN.md): runtime, modules, security, and implementation status.
+- [Architecture decisions](docs/adr/): accepted hosting and identity decisions.
+- [Open questions](docs/OPEN_QUESTIONS.md): unresolved policies and suggested defaults.
+- [Runbooks](docs/runbooks/): deployment, webhook recovery, incidents, and assisted onboarding.
+- [Agent guidance](AGENTS.md): conventions, rules, and repository commands.
+
+## Repository layout
 
 ```text
-apps/web/                 Nuxt UI + Nitro (driving adapters)
-packages/di/              composition root
-packages/shared/          Result, shared utils
-packages/modules/         feature modules (hexagonal)
-docs/                     product, architecture, ADRs, runbooks
-.cursor/                  rules, commands, skills
-.agents/skills/           skills installed via `npx skills`
+apps/web/                 Placeholder for Nuxt UI and Nitro routes
+packages/di/              Placeholder for production composition root
+packages/shared/          Placeholder for shared Result and utilities
+packages/modules/         Placeholder for feature modules
+docs/                     Product, technical design, ADRs, runbooks
+.cursor/                  Rules, commands, project and copied skills
+.agents/skills/           Installed third-party skills
 ```
 
-Each feature module uses `domain` → `application` → `adapters` → `presentation`. Persistence adapters live under `adapters/postgres/` (not D1). See [docs/architecture/hexagonal.md](docs/architecture/hexagonal.md).
+## Work locally
 
-## Pilot focus
+Read the product, pilot scope, and technical design before scaffolding packages. There is no install, development, build, or test command yet. `pnpm check` and `pnpm test` are intended checks once the toolchain exists.
 
-Inventory Truth only: movements with confirmation, balances, counts, reconciliation, alerts. Details in [docs/product/pilot-scope.md](docs/product/pilot-scope.md).
-
-## For AI agents
-
-Read [AGENTS.md](./AGENTS.md) first. Project rules are in `.cursor/rules/`. Useful slash commands: `/scope`, `/movement`, `/whatsapp-flow`, `/reconcile`, `/onboard-obra`, `/adr`, `/pr`, `/ship-check`.
-
-## Getting started (agents / docs)
-
-```bash
-# Explore docs
-open docs/architecture/overview.md
-
-# Cursor skills already vendored under .cursor/skills and .agents/skills
-```
-
-Application bootstrap (`pnpm` workspace, `nuxi`, Railway link) will be added in a follow-up.
+For documentation changes, run `python3 scripts/check_docs.py` and `git diff --check`. The documentation check covers project Markdown and rule files. Installed and copied skill bundles remain unchanged.
 
 ## License
 
-Proprietary — Davion Software.
+Proprietary. Davion Software.

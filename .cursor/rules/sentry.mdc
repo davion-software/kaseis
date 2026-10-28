@@ -10,6 +10,6 @@ alwaysApply: false
 - Wrap Nitro handlers and job processors with spans named after the use case / route.
 - Tag `organizationId` / `projectId` when known; avoid unnecessary PII.
 - Capture unexpected infra failures; expected domain `Result` errors are not Sentry events unless they indicate bugs.
-- On ledger-related incidents follow `docs/runbooks/incident-sentry.md`.
+- On ledger-related incidents follow `docs/runbooks/INCIDENT_SENTRY.md`.
 
 Use installed Sentry agent skills when configuring the SDK.

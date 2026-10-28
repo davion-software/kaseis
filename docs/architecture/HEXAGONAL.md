@@ -14,7 +14,7 @@ Nuxt pages / module presentation/
   → Postgres / Kapso / Better Auth / R2
 ```
 
-Pages and Vue components call the module **public API** or DI-wired use cases — never adapters, Drizzle, or `getDb()` directly.
+Pages and Vue components call server APIs. Nitro handlers resolve use cases from DI and use module public exports. Neither route handlers nor components call adapters, Drizzle, or `getDb()` directly.
 
 ## Monorepo layout
 

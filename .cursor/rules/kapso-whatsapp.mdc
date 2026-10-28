@@ -27,4 +27,4 @@ alwaysApply: false
 - Inventory writes go through inventory use cases via ports — messaging must not SQL the ledger.
 - Proactive alerts/templates must respect WhatsApp service windows and Kapso/Meta template rules.
 
-Env: `KAPSO_API_KEY`, `KAPSO_API_BASE_URL` (host only). See `docs/runbooks/kapso-webhooks.md` and skills `kapso-ai` / `kapso-kaseis`.
+Env: `KAPSO_API_KEY`, `KAPSO_API_BASE_URL` (host only). See `docs/runbooks/KAPSO_WEBHOOKS.md` and skills `kapso-ai` / `kapso-kaseis`.

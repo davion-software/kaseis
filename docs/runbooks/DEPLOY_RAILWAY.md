@@ -1,5 +1,7 @@
 # Runbook — Deploy Railway
 
+Status: planned procedure. App routes, deployment commands, replay tooling, and recovery have not been implemented or verified.
+
 Bootstrap steps for when the Nuxt app exists. Adjust service names to match the Railway project.
 
 ## Services (target)

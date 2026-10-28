@@ -26,4 +26,4 @@ An obra usable in ~48 hours for a suitable ICP: catalog, users, baseline invento
 - Do not require the customer to design the whole process alone
 - Expand to more obras only after the first is stable
 
-See `/onboard-obra` command and `docs/product/pilot-scope.md`.
+See `/ONBOARD_OBRA` command and `docs/PILOT_SCOPE.md`.

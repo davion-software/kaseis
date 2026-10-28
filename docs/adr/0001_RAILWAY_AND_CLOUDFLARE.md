@@ -1,4 +1,4 @@
-# ADR 001 — Railway + Cloudflare
+# ADR 0001 — Railway + Cloudflare
 
 - **Status:** Accepted
 - **Date:** 2026-07-13
@@ -20,3 +20,5 @@ Candidates considered: Railway, Cloudflare (full stack), Vercel, AWS.
 - Single mental model for deploy/env for the pilot.
 - R2 requires separate Cloudflare credentials and signed URL patterns.
 - Conversation state starts in Postgres/Redis on Railway; Workers/DO can be revisited if WhatsApp volume demands edge orchestration.
+
+This accepted design predates implementation. See the [technical design](../TECHNICAL_DESIGN.md) for current repository status.

@@ -1,0 +1,30 @@
+---
+description: Kapso WhatsApp webhooks, conversation confirmations, and messaging module
+globs: packages/modules/messaging/**,apps/web/server/**/kapso/**,apps/web/server/**/webhooks/**
+alwaysApply: false
+---
+
+# Kapso / WhatsApp
+
+## Handler contract
+
+1. Verify signature.
+2. Idempotency key / event id — reject or no-op duplicates.
+3. Return HTTP 200 quickly; enqueue for worker processing.
+4. At-least-once delivery: handlers must be safe to retry.
+
+## Conversation
+
+- Deterministic parsing first; LLM only as fallback for free text.
+- Ambiguous material → propose matches; user selects.
+- Before stock impact: structured summary + CONFIRMAR / CORREGIR / CANCELAR.
+- Keep obra context visible and changeable.
+- Degrade safely if LLM/Kapso side features fail — manual path remains.
+
+## Boundaries
+
+- Messaging module owns Kapso adapters and conversation state.
+- Inventory writes go through inventory use cases via ports — messaging must not SQL the ledger.
+- Proactive alerts/templates must respect WhatsApp service windows and Kapso/Meta template rules.
+
+Env: `KAPSO_API_KEY`, `KAPSO_API_BASE_URL` (host only). See `docs/runbooks/kapso-webhooks.md` and skills `kapso-ai` / `kapso-kaseis`.

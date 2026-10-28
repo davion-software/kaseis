@@ -1,0 +1,33 @@
+---
+description: Security, multi-tenant isolation, and private evidence storage
+alwaysApply: true
+---
+
+# Security
+
+## Multi-tenant
+
+- Every query and mutation scopes by `organizationId` (and `projectId` when obra-scoped).
+- Never trust client-supplied org/project ids without membership checks.
+
+## Evidence (R2)
+
+- Private objects only; use short-lived signed URLs.
+- Validate type/size before upload.
+- Do not expose permanent public bucket URLs.
+
+## AuthZ
+
+- Separate permissions: register vs approve vs administer.
+- Allow immediate disable of offboarded users.
+- MFA for admins can wait until MVP commercial; design sessions revocable now.
+
+## Secrets
+
+- `.env*` gitignored; Railway/Cloudflare secrets for deploy.
+- No secrets in client bundles (`NUXT_PUBLIC_*` only for non-sensitive values).
+
+## Personal data (Perú)
+
+- Phones, names, roles, conversations, business docs — minimize retention; plan export/delete paths.
+- Log access to sensitive exports.

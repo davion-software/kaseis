@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kapso AI"
+  short_description: "Kapso WhatsApp y voz con Pipecat"
+  default_prompt: "Use $kapso-ai to implement Kapso onboarding, webhooks, broadcasts, inbox operations, and Pipecat voice-agent flows."

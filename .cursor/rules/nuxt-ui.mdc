@@ -1,0 +1,26 @@
+---
+description: Nuxt 4 and Nuxt UI conventions for the dashboard
+globs: apps/web/**/*.{vue,ts},packages/modules/**/presentation/**/*.{vue,ts}
+alwaysApply: false
+---
+
+# Nuxt + Nuxt UI
+
+## UI
+
+- Use **Nuxt UI** components for dashboard pages and feature presentation.
+- Prefer Nuxt conventions: `useFetch` / `useAsyncData` over ad-hoc `$fetch` in setup that double-fetches.
+- No inventory business rules, SQL, or adapter construction in `.vue` files.
+
+## Server
+
+- Nitro routes are thin driving adapters: auth check → DI use case → map `Result` → response.
+- Colocate webhook routes under a clear API path; keep Kapso ack handlers minimal.
+
+## Structure
+
+- App shell and routes in `apps/web`
+- Feature components in `packages/modules/<feature>/presentation`
+- Shared UI primitives only when truly cross-feature
+
+Apply skill `nuxt-ui` / Anthony Fu `nuxt` skill when implementing UI.

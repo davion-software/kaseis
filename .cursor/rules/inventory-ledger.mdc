@@ -1,0 +1,30 @@
+---
+description: Immutable inventory ledger, balances, confirmation, and reconciliation
+globs: packages/modules/inventory/**,packages/modules/reconciliation/**,docs/architecture/ledger.md
+alwaysApply: false
+---
+
+# Inventory Ledger
+
+## Core rules
+
+- Stock is never a silently editable field; it derives from confirmed movements.
+- Do not update a confirmed movement in place — use `REVERSAL` or compensating adjustment.
+- WhatsApp-originated movements require explicit confirmation before affecting balances.
+- Enforce idempotency on webhook/message/document keys.
+- Preserve original text and normalized interpretation for audit.
+- Balances must be rebuildable from the ledger.
+
+## When adding a movement type
+
+1. Document the type and invariants in `docs/architecture/ledger.md` if new.
+2. Add domain entity/rules + port methods as needed.
+3. Implement adapter + mappers/schemas.
+4. Use case returns `Result`; cover happy path and duplicate/idempotent cases in tests.
+5. Never let presentation or LLM output write the ledger without going through confirmation use cases.
+
+## Confidence
+
+Surface reconciled / estimated / pending / difference / uninitialized — do not hide uncertainty.
+
+See `docs/architecture/ledger.md` and skill `inventory-truth`.

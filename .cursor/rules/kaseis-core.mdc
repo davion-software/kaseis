@@ -1,0 +1,44 @@
+---
+description: Kaseis stack, pilot ship gate, and product boundaries
+alwaysApply: true
+---
+
+# Kaseis Core
+
+## Stack
+
+Nuxt 4 · Nuxt UI · Better Auth · Railway (web, worker, Postgres, Redis) · Kapso (WhatsApp) · Cloudflare R2 · Sentry · GitHub.
+
+Do not introduce Clerk, WorkOS, Vercel-as-app-host, AWS-as-primary, Cloudflare Workers as primary app, Astro, or Next.js unless explicitly requested.
+
+## Architecture
+
+- Hexagonal feature modules under `packages/modules/<feature>/`
+- Composition root only in `packages/di`
+- Persistence adapter folder is `adapters/postgres/` (not D1)
+- Sensitive inventory and auth logic runs on the server / worker, not in Vue components
+
+## Pilot ship gate
+
+A change belongs in the pilot if it supports this loop:
+
+1. Configure obra + critical catalog
+2. Approved initial inventory
+3. WhatsApp ingreso/salida with confirmation
+4. Stock query
+5. Physical count + reconciliation
+6. Dashboard alerts / differences
+
+Defer OCR productivo, purchases/invoices, tareo/CAPECO, native apps, ERP/SUNAT emission.
+
+See `docs/product/pilot-scope.md`.
+
+## Data boundaries
+
+- Ledger movements are immutable; balances are projections
+- Multi-tenant isolation by `organizationId` (and project where required)
+- Evidence files live in R2 with signed URLs — never permanent public links
+
+## Minimize scope
+
+Match existing patterns. Prefer trust and confirmation over clever automation.

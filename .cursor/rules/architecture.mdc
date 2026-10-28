@@ -1,0 +1,105 @@
+---
+description: Hexagonal architecture, DI composition root, and SOLID rules
+globs: apps/**/*.{ts,vue},packages/**/*.ts
+alwaysApply: true
+---
+
+# Hexagonal Architecture (Nuxt monorepo)
+
+Follow a **feature-module hexagonal** layout. Wire dependencies only in the composition root.
+
+## Dependency flow
+
+```
+Nuxt UI / module presentation/
+  → Nitro server routes — driving adapters
+  → use case interfaces + *UseCase
+  → domain ports — I/O-bound use cases only
+  → adapters (postgres, kapso, better-auth, r2)
+  → Zod schemas + mappers
+  → Postgres / Kapso / Better Auth / R2
+```
+
+Routes and components must call a module's **public API** or DI-provided use cases — never adapters, Drizzle, or `getDb()` directly.
+
+## Project layout
+
+```
+apps/web/                         Nuxt 4 + Nuxt UI + Nitro
+packages/di/                      composition root (*.module.ts)
+packages/shared/                  Result, shared utils
+packages/modules/<feature>/
+  domain/{entities,errors,ports}
+  application/<use-case>/
+  adapters/{postgres|better-auth|kapso|r2,schemas,mappers,errors}
+  presentation/                   feature Vue components
+  index.ts
+```
+
+**Pilot modules:** `identity`, `worksites`, `inventory`, `messaging`, `reconciliation`.
+
+## Nomenclature
+
+| Concept | Name in this repo |
+| ------- | ----------------- |
+| Outbound domain contract | `InventoryPort` (`domain/ports/`) |
+| Postgres / Kapso / auth implementation | `PostgresInventoryAdapter`, `KapsoMessagingAdapter` |
+| Application contract | `ConfirmIssue`, `RecordPhysicalCount` (no `Port` suffix) |
+| Application implementation | `ConfirmIssueUseCase` |
+| Persistence row / API DTO | Zod in `adapters/schemas/`, mapped in `adapters/mappers/` |
+
+**Rule:** the `Port` suffix is reserved for **domain** outbound contracts only.
+
+## Composition root (`packages/di`)
+
+- Only `packages/di/*.module.ts` may instantiate db clients, adapters, and use cases for production.
+- Nitro handlers and workers resolve wired use cases from DI.
+- Tests may construct adapters or doubles inline.
+- Prefer factory functions over a DI framework for the pilot.
+
+## Layer rules
+
+### Domain
+
+- Must not import Vue, Nuxt, Drizzle, Kapso, Better Auth, SQL, `fetch`, Zod, or adapters.
+- camelCase entities; `snake_case` stays in schemas.
+
+### Application
+
+- One folder per use case; interface + `*UseCase` class.
+- I/O-bound use cases depend on domain **ports**, never concrete adapters.
+- Return `Result<T, DomainError>` for expected failures.
+- No SQL, HTTP, or Zod.
+
+### Adapters
+
+- Implement domain ports (`*Adapter` naming).
+- Own all I/O.
+- Map infra failures in `adapters/errors/` before returning `Result`.
+
+### Nitro / presentation
+
+- Thin handlers: Sentry spans, unwrap `Result`, HTTP mapping.
+- Components render and dispatch only — no ledger math or auth enforcement beyond calling server APIs.
+- Use **Nuxt UI** for dashboard components (see `nuxt-ui.mdc`).
+
+## Cross-module
+
+- Allowed: A use case → B domain port via public export.
+- Forbidden: A → B adapters/schemas/mappers; circular deps.
+
+## SOLID (pragmatic)
+
+- Single responsibility: one use case per folder; one module per feature.
+- Open/closed: extend via new use cases/adapters.
+- Liskov: adapters honor the full port contract.
+- Interface segregation: small ports.
+- Dependency inversion: application → ports; adapters → domain shapes.
+
+## Avoid
+
+- Top-level `domain/` / `application/` outside modules.
+- Instantiating adapters outside `packages/di` (except tests).
+- SQL or Zod in Vue components, domain, or application.
+- `*Port` on use case names.
+- Naming persistence `d1` — use `postgres`.

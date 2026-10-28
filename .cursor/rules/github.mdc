@@ -1,0 +1,12 @@
+---
+description: GitHub workflow — conventional commits and pull requests
+alwaysApply: true
+---
+
+# GitHub
+
+- Conventional commits: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`.
+- Prefer small, focused PRs.
+- Create/update PRs with `gh pr create` / `gh pr edit`; include Summary + Test plan.
+- Do not force-push `main`.
+- Do not commit `.env`, credentials, or R2/Kapso secrets.

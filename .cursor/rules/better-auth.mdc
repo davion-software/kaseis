@@ -1,0 +1,33 @@
+---
+description: Better Auth setup and pilot auth constraints
+globs: packages/modules/identity/**,apps/web/server/**/auth/**
+alwaysApply: false
+---
+
+# Better Auth
+
+## Pilot auth
+
+Email/password and sessions. No social login, WorkOS SSO, or heavy RBAC in the pilot.
+
+## Integration
+
+- Live under `packages/modules/identity/adapters/better-auth/`
+- Expose session/user resolution via identity **ports** and thin Nitro handlers
+- Do not leak Better Auth types into inventory/messaging domain
+- Protect mutating server routes with authenticated membership checks (`organizationId` / role)
+
+## Secrets
+
+```bash
+BETTER_AUTH_SECRET=   # generate with Better Auth CLI
+BETTER_AUTH_URL=http://localhost:3000
+```
+
+Production: set `BETTER_AUTH_URL` to the public Railway HTTPS URL. Never commit secrets.
+
+## Schema
+
+Auth tables belong with identity migrations (Postgres). Regenerate when auth config changes.
+
+See `docs/decisions/002-auth-better-auth.md`.

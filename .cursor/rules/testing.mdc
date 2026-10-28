@@ -1,0 +1,25 @@
+---
+description: Testing boundaries by hexagonal layer
+alwaysApply: true
+---
+
+# Testing
+
+## By layer
+
+- **Domain / application:** unit tests with port doubles; no Postgres, Kapso, or R2.
+- **Adapters:** test mappers/schemas thoroughly; adapter integration tests against local Postgres when available.
+- **Nitro / UI:** thin; prefer testing use cases over page snapshots for business rules.
+
+## Coverage priorities (pilot)
+
+1. Confirmation gate before stock write
+2. Idempotent webhook / duplicate movement prevention
+3. Reversal vs silent edit
+4. Unit conversion / ambiguous material handling
+5. Org isolation (queries cannot leak across tenants)
+
+## Avoid
+
+- Hitting real Kapso or production R2 in unit tests
+- Asserting on Vue for ledger correctness

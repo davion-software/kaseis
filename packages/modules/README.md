@@ -1,5 +1,7 @@
 # packages/modules
 
+Status: placeholder directory. The responsibilities and paths below describe the target design; no implementation exists yet.
+
 Feature modules (vertical slices) using hexagonal layers.
 
 ## Pilot modules
@@ -34,6 +36,6 @@ Feature modules (vertical slices) using hexagonal layers.
   index.ts             # public API
 ```
 
-Persistence adapter folder is **`postgres`**, not `d1` (see ADR 001).
+Persistence adapter folder is **`postgres`**, not `d1` (see [ADR 0001](../../docs/adr/0001_RAILWAY_AND_CLOUDFLARE.md)).
 
 Cross-module rule: depend on another module’s **domain ports** via its public `index.ts`, never on its adapters.

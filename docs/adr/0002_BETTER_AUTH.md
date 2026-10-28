@@ -1,4 +1,4 @@
-# ADR 002 — Better Auth
+# ADR 0002 — Better Auth
 
 - **Status:** Accepted
 - **Date:** 2026-07-13
@@ -23,3 +23,5 @@ Use **Better Auth** with email/password and sessions for the pilot.
 - Lower vendor lock-in and cost vs Clerk for early stage.
 - More ownership of schema, cookies, and Nuxt integration.
 - WorkOS remains an option later via a new adapter implementing the same ports.
+
+This accepted design predates implementation. See the [technical design](../TECHNICAL_DESIGN.md) for current repository status.

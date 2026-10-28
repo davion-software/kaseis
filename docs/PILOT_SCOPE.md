@@ -1,6 +1,6 @@
 # Pilot scope
 
-Source of truth for what belongs in the validation pilot (Fase 1 — Inventory Truth). Contrast every feature request against this file and `/scope`.
+Source of truth for what belongs in the validation pilot (Fase 1 — Inventory Truth). Contrast every feature request against this file and `/SCOPE`.
 
 ## Goal
 

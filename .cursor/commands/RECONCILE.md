@@ -4,7 +4,7 @@ Implement or extend count → difference → adjustment → approval.
 
 ## Steps
 
-1. Read `docs/architecture/ledger.md` reconciliation section.
+1. Read `docs/architecture/LEDGER.md` reconciliation section.
 2. Work in `packages/modules/reconciliation` (+ inventory ports).
 3. Never delete prior movements when applying a count.
 4. Link PhysicalCount ↔ Reconciliation ↔ Adjustment movement.

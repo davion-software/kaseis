@@ -4,8 +4,8 @@ Safely extend the inventory ledger.
 
 ## Steps
 
-1. Confirm scope with `/scope` / `docs/product/pilot-scope.md`.
-2. Read `docs/architecture/ledger.md` and `.cursor/rules/inventory-ledger.mdc`.
+1. Confirm scope with `/SCOPE` / `docs/PILOT_SCOPE.md`.
+2. Read `docs/architecture/LEDGER.md` and `.cursor/rules/inventory-ledger.mdc`.
 3. Update domain entities/ports in `packages/modules/inventory` as needed.
 4. Add use case under `application/<use-case>/` returning `Result`.
 5. Implement `adapters/postgres` + schemas/mappers; wire in `packages/di`.

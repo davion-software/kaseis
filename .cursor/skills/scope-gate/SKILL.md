@@ -16,7 +16,7 @@ description: Classify work into Kaseis pilot, MVP commercial, or later roadmap b
 
 ## Process
 
-1. Open `docs/product/pilot-scope.md`.
+1. Open `docs/PILOT_SCOPE.md`.
 2. Assign phase.
 3. If not pilot and user did not explicitly expand scope: stop and propose the smallest pilot-shaped alternative.
 4. If pilot: name which ship-gate step it improves.

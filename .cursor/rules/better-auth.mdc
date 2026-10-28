@@ -30,4 +30,4 @@ Production: set `BETTER_AUTH_URL` to the public Railway HTTPS URL. Never commit 
 
 Auth tables belong with identity migrations (Postgres). Regenerate when auth config changes.
 
-See `docs/decisions/002-auth-better-auth.md`.
+See `docs/adr/0002_BETTER_AUTH.md`.

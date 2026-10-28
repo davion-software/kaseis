@@ -9,7 +9,7 @@ Design or implement a Kapso conversation flow with confirmation.
 3. Webhook: verify → idempotent → 200 → enqueue.
 4. Worker: resolve context → propose → await confirm → call inventory use case.
 5. Keep messaging adapters in `packages/modules/messaging`; inventory writes via ports.
-6. Follow `docs/runbooks/kapso-webhooks.md` and skills `kapso-kaseis`, `kapso-ai`.
+6. Follow `docs/runbooks/KAPSO_WEBHOOKS.md` and skills `kapso-kaseis`, `kapso-ai`.
 
 ## Output
 

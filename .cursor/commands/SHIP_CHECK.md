@@ -4,7 +4,7 @@ Pre-merge checklist for Kaseis changes.
 
 ## Verify
 
-- [ ] Change fits pilot ship gate (`docs/product/pilot-scope.md`) or user explicitly asked for later phase
+- [ ] Change fits pilot ship gate (`docs/PILOT_SCOPE.md`) or user explicitly asked for later phase
 - [ ] Hexagonal boundaries respected (no SQL/Zod in domain/application/Vue)
 - [ ] DI wiring only in `packages/di` for new adapters
 - [ ] Ledger: no silent edits; confirmation + idempotency if WhatsApp path

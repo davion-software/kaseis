@@ -52,4 +52,14 @@ Balances in `InventoryBalance` must be rebuildable from confirmed movements.
 5. Approve per role/threshold.
 6. Link count ↔ reconciliation ↔ adjustment; keep history.
 
-See [../product/glossary.md](../product/glossary.md) and `.cursor/rules/inventory-ledger.mdc`.
+See [Glossary](../../GLOSSARY.md) and `.cursor/rules/inventory-ledger.mdc`.
+
+## Movement identifiers
+
+The existing vocabulary is `INITIAL_BALANCE`, `RECEIPT`, `ISSUE`, `RETURN_IN`, `RETURN_OUT`, `TRANSFER_OUT`, `TRANSFER_IN`, `ADJUSTMENT_POSITIVE`, `ADJUSTMENT_NEGATIVE`, and `REVERSAL`. These are design identifiers, not implemented enums.
+
+`RECEIPT` represents ingreso, not the later supplier delivery record. Transfers appear in the earlier pilot+ vocabulary but lack confirmed pilot scope. Do not implement transfers on that basis alone. See [open questions](../OPEN_QUESTIONS.md).
+
+A reversal contributes the opposite signed quantity of the referenced movement. It is not an unqualified extra term in the balance equation. Partial reversal policy and prevention of repeated reversal remain open.
+
+Count cutoffs, tolerance, freshness, approval thresholds, quantity precision, and negative-stock defaults are unresolved. The confidence labels above describe intent; they are not a specified state machine yet.

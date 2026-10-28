@@ -1,6 +1,6 @@
 ---
 description: Immutable inventory ledger, balances, confirmation, and reconciliation
-globs: packages/modules/inventory/**,packages/modules/reconciliation/**,docs/architecture/ledger.md
+globs: packages/modules/inventory/**,packages/modules/reconciliation/**,docs/architecture/LEDGER.md
 alwaysApply: false
 ---
 
@@ -17,7 +17,7 @@ alwaysApply: false
 
 ## When adding a movement type
 
-1. Document the type and invariants in `docs/architecture/ledger.md` if new.
+1. Document the type and invariants in `docs/architecture/LEDGER.md` if new.
 2. Add domain entity/rules + port methods as needed.
 3. Implement adapter + mappers/schemas.
 4. Use case returns `Result`; cover happy path and duplicate/idempotent cases in tests.
@@ -27,4 +27,4 @@ alwaysApply: false
 
 Surface reconciled / estimated / pending / difference / uninitialized — do not hide uncertainty.
 
-See `docs/architecture/ledger.md` and skill `inventory-truth`.
+See `docs/architecture/LEDGER.md` and skill `inventory-truth`.

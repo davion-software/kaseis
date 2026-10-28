@@ -1,5 +1,7 @@
 # Runbook — Sentry incidents
 
+Status: planned procedure. App routes, deployment commands, replay tooling, and recovery have not been implemented or verified.
+
 ## Setup (when app exists)
 
 - `SENTRY_DSN` on Railway `web` and `worker`

@@ -1,5 +1,7 @@
 # apps/web
 
+Status: placeholder directory. The responsibilities and paths below describe the target design; no implementation exists yet.
+
 Nuxt 4 application: dashboard UI (Nuxt UI) and Nitro server routes that act as **driving adapters**.
 
 ## Responsibilities
@@ -15,4 +17,4 @@ Nuxt 4 application: dashboard UI (Nuxt UI) and Nitro server routes that act as *
 - Contain domain rules or ledger math
 - Instantiate adapters outside DI (except tests)
 
-See [docs/architecture/hexagonal.md](../../docs/architecture/hexagonal.md).
+See [docs/architecture/HEXAGONAL.md](../../docs/architecture/HEXAGONAL.md).
